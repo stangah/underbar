@@ -16,16 +16,37 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+	var short = [];
+	if (n !== undefined) {
+		for (var i = 0; i < Math.min(n, array.length); i++) {
+			short.push(array[i]);
+		}
+		return short;
+	} else {
+		return array[0];
+	};
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+	var short = [];
+	if (n >= array.length) {
+		return array;
+	} else if (n !== undefined) {
+		for (var i = 0; i < n; i++) {
+			short.unshift(array.pop());
+		}
+		return short;
+	} else {
+		return array.pop();
+	}
   };
 
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
+  
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
