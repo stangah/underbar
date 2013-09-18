@@ -307,6 +307,8 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+  	var arg = Array.prototype.slice.call(arguments, 2);
+  	return setTimeout(function() { func.apply(this, arg) }, wait);
   };
 
 
@@ -317,6 +319,12 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+  	var result = [], loc;
+  	while(array.length > 0) {
+  		loc = Math.floor(Math.random() * array.length);
+  		result.push(array.splice(loc, 1));
+  	};
+  	return result;
   };
 
 
