@@ -94,6 +94,14 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+	var result = [];
+	_.each(array, 
+		function(value, key, collection) {
+			if (Math.round(key) === _.indexOf(collection, value)) {
+				result.push(value);
+			}
+		});
+	return result;
   };
 
 
@@ -102,6 +110,13 @@ var _ = { };
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var result = [];
+    _.each(array, 
+    	function(value, key, collection) {
+    		result.push(iterator(value));
+    	}
+    );
+    return result;
   };
 
   /*
@@ -124,6 +139,15 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
+  	if (typeof methodName === 'function') {
+  		return _.map(list, function(item) {
+  			return methodName.apply(item, args);
+  		});
+  	} else {
+  		return _.map(list, function(item) {
+  			return item[methodName].apply(item, args);
+  		});
+  	}
   };
 
   // Reduces an array or object to a single value by repetitively calling
